@@ -1,3 +1,4 @@
 DEFAULT_SCHEMA = "default"
 DEFAULT_SQL_PATH = "_sql"
 DEFAULT_FETCH_SIZE = 10000
+SQL_6_8_PATH = "_xpack/sql"

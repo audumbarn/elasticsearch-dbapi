@@ -7,7 +7,7 @@ from elasticsearch import exceptions as es_exceptions
 from es import exceptions
 
 
-from .const import DEFAULT_FETCH_SIZE, DEFAULT_SCHEMA, DEFAULT_SQL_PATH
+from .const import DEFAULT_FETCH_SIZE, DEFAULT_SCHEMA, DEFAULT_SQL_PATH, SQL_6_8_PATH
 
 
 CursorDescriptionRow = namedtuple(
@@ -189,7 +189,11 @@ class BaseCursor:
         """
         self.url = url
         self.es = es
-        self.sql_path = kwargs.get("sql_path", DEFAULT_SQL_PATH)
+        version = es.info()['version']['number']
+        if (str(version).startswith('6')):
+            self.sql_path = kwargs.get("sql_path", SQL_6_8_PATH)
+        else:
+            self.sql_path = kwargs.get("sql_path", DEFAULT_SQL_PATH)
         self.fetch_size = kwargs.get("fetch_size", DEFAULT_FETCH_SIZE)
         self.time_zone: Optional[str] = kwargs.get("time_zone")
         # This read/write attribute specifies the number of rows to fetch at a

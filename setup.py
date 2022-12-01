@@ -3,15 +3,15 @@ import os
 
 from setuptools import find_packages, setup
 
-VERSION = "0.2.9"
+VERSION = "0.2"
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 with io.open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="elasticsearch-dbapi",
-    description=("A DBAPI and SQLAlchemy dialect for Elasticsearch"),
+    name="arn-elasticsearch-dbapi",
+    description=("A DBAPI and SQLAlchemy dialect for Elasticsearch with Support for ES 6.8"),
     long_description=long_description,
     long_description_content_type="text/markdown",
     version=VERSION,
@@ -33,7 +33,7 @@ setup(
     author="Preset Inc.",
     author_email="daniel@preset.io",
     url="http://preset.io",
-    download_url="https://github.com/preset-io/elasticsearch-dbapi/releases/tag/"
+    download_url="https://github.com/audumbarn/elasticsearch-dbapi/releases/tag/"
     + VERSION,
     classifiers=[
         "Programming Language :: Python :: 3.6",

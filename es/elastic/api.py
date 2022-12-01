@@ -13,6 +13,7 @@ from es.baseapi import (
     Type,
 )
 from packaging import version
+from es.const import DEFAULT_SQL_PATH, SQL_6_8_PATH
 
 
 def connect(
@@ -87,7 +88,14 @@ class Cursor(BaseCursor):
 
     def __init__(self, url: str, es: Elasticsearch, **kwargs: Any) -> None:
         super().__init__(url, es, **kwargs)
-        self.sql_path = kwargs.get("sql_path") or "_sql"
+        version = es.info()['version']['number']
+        if (kwargs.get("sql_path")):
+            self.sql_path = kwargs.get("sql_path")
+        else:
+            if (str(version).startswith('6')):
+                self.sql_path = SQL_6_8_PATH
+            else:
+                self.sql_path = DEFAULT_SQL_PATH
 
     def _get_value_for_col_name(self, row: Tuple[Any], name: str) -> Any:
         """
